@@ -4,7 +4,8 @@ Kwangwoon Univ. Robotics experient 3 final project
 # 서론
 ## 개발동기
 충분한 수면시간은 인간에게 필수적이지만, 그러지 못하는 게 현실이다. 그렇기에 단시간 잠을 자더라도 숙면을 취하려면 어떠한 환경이 필요한지 고민하게 되었다. 스마트 침실의 역할을 수행함과 동시에 스마트 홈의 역할도 수행할 수 있도록 작품을 구상하게 되었다. 
- ![1 EffectOfSleeping](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/fcd09a5e-2020-4c21-a9f3-40a03c4456e5)
+![1 EffectOfSleeping](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/fcd09a5e-2020-4c21-a9f3-40a03c4456e5)  
+
 그림1. BBC가 발표한 수면 부족이 신체에 미치는 영향 
 https://www.bbc.com/korean/features-41775870 
 
