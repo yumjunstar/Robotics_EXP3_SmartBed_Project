@@ -109,7 +109,8 @@ Temperature 부분이 많이 오차가 심한 것 처럼 보이지만 y축을 �
 1.	스위치를 누르면 Fade_led에 의해 led가 서서히 켜진다. 스위치를 다시 누르면 LED가 서서히 꺼지게 된다. 
 2.	Led가 켜지면 CDS에서 센서 값을 ADC 받아 LUX로 변환하고, 100 LUX 이상이 되면 아침상황이 되고, 서보모터와 부저 관련 코드를 실행한다. 문이 열리는 연출을 위해 서보모터가 90도 회전하고, 알람 역할을 하는 부저가 작동한다. 
 3.	온도 센서, 습도 센서가 작동하며 온도가 바뀜에 따라 온도 조절 장치가 실행되고 습도 센서 값과 함께 불쾌 지수를 계산하여 1층에 있는 7-세그먼트에 십의자리 숫자로 나타낸다.
-4.	화장대에 사람이 다가가면 일정 거리 미만일 때 LED를 점등한다. 
+4.	화장대에 사람이 다가가면 일정 거리 미만일 때 LED를 점등한다.
+
 ![image23](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/19d86eb2-bb80-4de3-924a-39ed67efaef6)  
 ![image24](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/e0de9a2c-4004-47b4-949d-166e47045b2b)  
 
