@@ -15,11 +15,17 @@ https://www.bbc.com/korean/features-41775870
 습도센서, 온도 센서는 사용자에게 현재 상태를 나타내기 위해 사용하였다. 온도 센서는 2층에 마련된 자동온도제어기와 연결되어 있다. 자동온도제어기는 현재 온도로 저장된 온도보다 주위 온도가 높아지면 온도를 내리기 위해 냉방기를 작동시키게 하고, 주위 온도를 현재 온도로 업데이트한다. 주위 온도가 현재 온도보다 차가워지면 난방기를 작동시키게 한다. 습도 센서는 7 세그먼트와 연결되어 있고 측정된 습도 센서 값과 온도센서 값을 바탕으로 불쾌지수를 1~9로 환산하여 사용자에게 보여준다. 
 초음파 센서는 화장대에 설치되어 있는데, 사용자가 일어난 후 화장대 앞으로 이동할 때 특정 거리안에 들어오면 자동으로 LED를 점등하여 사용자가 편안하게 외출 준비를 할 수 있도록 하였다. 
 가속도, 자이로 센서는 침대에 설치되어 있다. 최근 다양한 업체들이 침대에 센서를 부착하고 센서 값을 바탕으로 사용자의 수면 점수를 분석하는 부분에서 채용한 부분이다. (밑의 그림은 레스피오 라는 업체이다.)가속도, 자이로 센서들의 값과 수면의 질 사이의 관계를 파악하지 못하여 얻은 값을 더 큰 값으로 가공하지는 못했지만, 침대가 움직이며 바뀌는 가속도, 자이로 센서 값을 PC 쪽으로 일정 시간 마다 전달하게 된다.
- 
+![2 OneOfSleepingCompany_Respio](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/39306db4-6948-415e-b712-22f685382575)  
+
 그림2. 수면 분석 업체 중 하나인 레스피오
 https://www.vitealth.net/ 
 ## 2. 하드웨어 설명
 하드웨어는 포맥스를 이용하여 제작하였으며 1층과 2층으로 나뉜다. 2층 부분이 스마트 침실 부분이고, 1층 부분은 스마트 침실을 위한 회로 부분이다. 스마트 침실에는 초음파, 온도, 습도, 가속도, 자이로, 조도 센서가 사용되었다. 센서들은 스마트 침실의 가구에 배치하여 사용자와 상호작용할 수 있도록 구성하였다. 침실의 동작을 위한 부품으로는 서보 모터, 3색 LED, LED, 스위치, 7 세그먼트, 부저가 사용되었다.
+![3 Hardware_output](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/1e807253-5b42-4d1d-bf9e-5817ae74820f)  
+
+
+![4 Hardware_output-2](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/7951ed36-1a3f-4a1e-83fa-6ab8cf3e9dbe)  
+
 
    
 ## 3. 시스템 설명
@@ -28,46 +34,86 @@ MAF와 LPF를 사용하였다. MAF는 일정 시간 동안의 DATA를 평균내�
 센서들에 따라 MAF와 LPF 중 한 개의 필터를 사용하여 센서 노이즈를 감소시키고자 하였다.
 LM35, DHT11은 온/습도 센서로써 온/습도가 갑자기 크게 바뀌는 것이 아니기에 센서 값의 전반적인 평탄화가 더 적합하다고 생각하여 MAF 필터를 적용하였다. 
  
-   
+![image5](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/393140c0-a2de-49c5-8bc3-dcc409a40bae)  
+
+![image6](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/90403e74-c429-4c30-924d-8def471d4a2b)  
+
+![image7](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/9f8d72f7-7e9c-4cac-b421-b9de01c09c6a)  
+
+
 LPF 계산 공식
- 
- 
+![image9](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/9f52aec4-778a-4ece-8b05-ae4c34a1962d)  
+
+
+![image10](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/7102743b-cec9-4146-876e-44afbbcc1e31)  
+
+
 이 그래프는 매트랩으로 MAF, LPF를 적용시킨 결과이다. Colums1~10은 필터링하기 전의 값이고 Colums 11~20은 필터링 된 값이다. 
 순서대로 distance_mm. lux, temperature, humidity, a_x, a_y, a_z, g_x, g_y, g_z 를 의미한다. 
 Temperature 부분이 많이 오차가 심한 것 처럼 보이지만 y축을 확인해본 결과 1도 범위 내에서 움직이고 있음을 확인하였고, 센서 자체의 오차라고 분석하였다. 
 아래 코드는 UART 통신을 통해 센서 값을 받아오는 부분이다. 
-  
+
+![image11](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/c0ecd941-c74d-4a55-982e-cb9bd0a8e620)  
+
+![image12](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/e1bdaff4-ad68-4132-840a-1e0f8ac79f0e)  
+
+
 ### 조도 센서
 조도 센서는 제공받은 GR5539를 사용하였다. 1층에 있는 스위치를 눌러 인공 태양(LED)의 밝기가 밝아지면 이를 센서 값으로 받아, 일정 경계가 넘어가면 시스템에 아침이라는 정보를 제공한다. CDS에서 받은 값을 그대로 사용하는 것이 아닌 LUX 값으로 환산하여 사용하였다. ADC를 사용하여 값을 구하였고, 조도센서, 온도센서 등과 같이 ADC를 활용해서 값을 구하는 센서들에 쉽게 접근하기 위해 ADC_Control이라는 헤더파일을 만들어 사용하였다. 사용한 공식은 수업시간에 배운 것과 동일하다. 코드에서는 LUX 값이 100 이상이면 아침으로 인식하고 서보 모터와 부저를 울리도록 설계하였다.
    
+ ![image13](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/c6e871da-2a47-4d87-834e-e209a1cf39d6)  
+ ![image14](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/ff09370a-661f-44be-a07b-aa1ddc0ed9ea)  
  
+![image15](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/457f647b-fd81-49b3-bdbb-962a4e504955)  
+
+
+
 ### 온도 센서
-  
+![image16](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/39a5ac85-8319-4086-aa8c-750967a89531)  
+
 온도 센서는 주어진 LM35를 사용했다. LM35는 원래의 회로환경에서는 사용할 수 없었지만 기존에 달려 있는 증폭기 회로를 고쳐 사용이 가능하게 만들었다. 왼쪽의 LM2902 데이터 시트를 살펴보면 OpAmp의 입출력 부분은 알맞게 연결되어 있지만, 증폭기의 전원부가 잘못 연결된 것을 알 수 있다. DataSheet에는 4번 11번이 V+, V- 이지만 실습회로에서는 그 반대로 되어있다. 외부 보드를 따로 만들어서 핀을 새로 연결하여 사용하였다. 현재 증폭기가 4배 증폭을 하는 중이기 때문에 10mv당 1도가 올라가던 LM35는 40mv당 1도가 올라가도록 바뀌었다. 		
 이후 LM35를 활용하여 온도를 자동으로 조절하는 온도 조절기를 만들었다. 기준 온도보다 외부의 온도가 높으면 빨간색 LED를 점등하여 냉방기를 가동하고 기준 온도를 외부의 온도와 동기화 시킨다. 만약 기준 온도보다 외부의 온도가 낮으면 파란색 LED를 점등하여 난방기를 가동하고 온도를 업데이트 한다. 
- 
+
+![image18](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/27a7cee4-e65e-4d26-8f57-5422069846e4)  
+
+
 ### 습도 센서
 습도 센서는 DHT11 온습도 센서에서 습도 값 만을 사용하였다. 자체적인 통신 규약이 있어서 이에 따라 코드를 구현했다. ADC_CONTROL에서는 구현하지 못하기에 DHT11 전용 헤더파일을 만들어 진행하였다. DHT11을 읽는 동안에는 잠시 인터럽트를 중지하는데 그 이유는 다른 인터럽트가 DHT11의 타이밍을 방해하기 때문에 DHT11의 올바른 값을 받아올 수 없기 때문이다. 다른 인터럽트를 중지하기 때문에 이 여파로 부저가 울렸을 때 부저의 음이 지연되어 일정한 주기의 부저의 음을 들을 수 없게 된다. 
 습도센서 값을 받아오면 우리가 알고 있는 상대습도의 개념으로 값을 받아오게 된다. 받아온 값으로 무엇을 하면 사용자에게 더 쓸모 있는 정보가 될 수 있을지 고민하다 앞에서 LM35를 활용해 얻은 온도센서 값과 결합하여 불쾌지수를 계산하고자 하였다. 불쾌지수는 다음과 같은 식으로 계산할 수 있다. 
 0.81 * 섭씨온도 +0.01 * 상대습도(%)（0.99*섭씨온도 - 14.3）+ 46.3
 계산한 불쾌지수는 7 – 세그먼트를 이용하여 십의 자릿수만 표현하여 1~9 단계로 정보를 제공할 수 있도록 하였다. 
- 
+![image19](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/fc3dce34-31a4-4b0a-8fbd-a934eb8e30dd)  
+
+
 
 ### 자이로, 가속도 센서
+![image20](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/100dc07e-c375-409d-ac4c-6b08b16b4152)  
+
+![image21](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/27841cc6-d3c9-4bf1-a0bf-69685b5a35b5)  
+
+
+
 가속도, 자이로 센서는 MPU6050 칩을 사용하였으며 가속도와 각속도의 값을 같이 받을 수 있게 하였다. 실습 보드와 I2C 통신을 하여 값을 받아왔다. 가속도 센서의 단위는 m/s^2, 자이로 센서의 단위는 rad/s 로 단위를 환산하여 시리얼 모니터에 표현하도록 만들었다. 
   
 ### 초음파 센서
+
+![image22](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/e3289cc2-3759-41c4-a465-75abcb2027da)  
+
+
 초음파 센서는 HC-SR04 모듈을 사용했다. 초음파 센서는 VCC, GND 말고도 Trigger 핀과 Echo 핀을 이용해 물체와의 거리를 측정한다. 음파가 다시 돌아오는 시점을 구하여 시간 차이를 계산하고 소리의 속도를 곱하여 거리를 계산한다. 초음파 센서는 화장대에 설치하여 사용자가 가까이 가면 자동으로 전등이 들어올 수 있도록 구성하였다. 
  
 ### 계산 공식
- 
+ ![image22 5](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/4fcb9c8b-473e-4960-bbcd-c3c461f6e200)
+
 
 ### 시뮬레이션 결과
 1.	스위치를 누르면 Fade_led에 의해 led가 서서히 켜진다. 스위치를 다시 누르면 LED가 서서히 꺼지게 된다. 
 2.	Led가 켜지면 CDS에서 센서 값을 ADC 받아 LUX로 변환하고, 100 LUX 이상이 되면 아침상황이 되고, 서보모터와 부저 관련 코드를 실행한다. 문이 열리는 연출을 위해 서보모터가 90도 회전하고, 알람 역할을 하는 부저가 작동한다. 
 3.	온도 센서, 습도 센서가 작동하며 온도가 바뀜에 따라 온도 조절 장치가 실행되고 습도 센서 값과 함께 불쾌 지수를 계산하여 1층에 있는 7-세그먼트에 십의자리 숫자로 나타낸다.
 4.	화장대에 사람이 다가가면 일정 거리 미만일 때 LED를 점등한다. 
-   
+![image23](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/19d86eb2-bb80-4de3-924a-39ed67efaef6)  
+![image24](https://github.com/yumjunstar/Robotics_EXP3_SmartBed_Project/assets/24960675/e0de9a2c-4004-47b4-949d-166e47045b2b)  
+
 ## 4. 고찰
 우리 조는 다양한 센서를 활용하여 스마트 침실을 개발하였다. 처음계획과는 많이 달라진 부분도 있었지만 큰 틀을 유지하며 좋은 결과물을 만들었다고 생각한다. 
 우리 조는 각자 자신 있는 분야를 맡아 분업을 하였는데, 김현준은 알고리즘 설계와 하드웨어 설계 및 제작을, 염준우는 소프트웨어 프로그래밍 및 회로 설계를 맡았다. 두 명이 같이 하드웨어를 제작하거나 프로그래밍을 같이 하는 것보다 더 효율적으로 텀 프로젝트를 할 수 있었다고 생각한다. 
